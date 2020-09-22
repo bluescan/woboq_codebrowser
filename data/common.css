@@ -27,8 +27,22 @@ display:block; overflow:auto; max-width:20em; max-height:20em; list-style:none; 
 list-style-type: none; padding: 0; margin-right: 1ex;
 }
 
+/* tacent */
+.code { tab-size:4; -moz-tab-size:4; -o-tab-size:4; -webkit-tab-size:4; white-space: pre-wrap;}
 .code { border-collapse:collapse; width:100%; padding:0 }
-.code { font-family: monospace; }
+/* .code { font-family: monospace; } */
+@font-face {
+    font-family: 'proggyvector';
+    src: url('ProggyVectorRegular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+}
+/* @import url('https://fonts.googleapis.com/css?family=Inconsolata'); */
+
+.code { font-family: proggyvector, monospace; font-size:10pt;}
+/* .code { font-family: Inconsolata, monospace; font-size:10pt;} */
+
+
 table.code{ table-layout:fixed; width: 100% } /* This improves performence.  The idea is that the second column just overflows */
 .code th { width:6.5ex; padding-right:1ex; background-color:#eeeeee ;
             text-align:right; color:black; font-weight:normal;

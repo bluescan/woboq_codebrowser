@@ -1178,9 +1178,15 @@ $(function () {
         if (setStyle.toLowerCase() === title.toLowerCase()) styleOpt += " selected='true'";
         styleOpt += ">" + title + "</option>";
     });
-    $("#header").append("<p id='options'><a class='opt_linenum' href='#'>Toggle line number</a> -  Style: <select class='opt_style'>" + styleOpt + "</select></p>")
+    // $("#header").append("<p id='options'><a class='opt_linenum' href='#'>Toggle line number</a> -  Style: <select class='opt_style'>" + styleOpt + "</select></p>")
 
     var lineNumberShown = -1;
+    
+    // tacent. Added these 3 lines.
+    lineNumberShown = false;
+    $(".code th").hide();
+    switchStylestyleAndSetCookie("KDevelop");
+ 
     $(".opt_linenum").click(function() {
         if (lineNumberShown == -1) {
             //add a space to the empty lines so that they keep their height.
@@ -1194,6 +1200,7 @@ $(function () {
         lineNumberShown = !lineNumberShown;
         return false;
     });
+
     $(".opt_style").change(function(e) {
         switchStylestyleAndSetCookie(this.options[this.selectedIndex].value);
         //return false;

@@ -472,6 +472,10 @@ int main(int argc, const char **argv) {
             .Cases(".h", ".H", ".hh", ".hpp", true)
             .Default(false);
 
+		// @tacent Do not skip header compiles. They should be processed even if not included by anything. eg. They may be part of a
+		// library and not directly used by the library.
+		isHeader = false;
+
         auto compileCommandsForFile = Compilations->getCompileCommands(file);
         if (!compileCommandsForFile.empty() && !isHeader) {
             std::cerr << '[' << (100 * Progress / Sources.size()) << "%] Processing " << file << "\n";
