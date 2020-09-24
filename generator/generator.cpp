@@ -170,8 +170,11 @@ void Generator::generate(llvm::StringRef outputPrefix, std::string dataPath, con
     myfile << "</script>\n";
     myfile << "<script src='" << dataPath << "/codebrowser.js'></script>\n";
 
-    myfile << "</head>\n<body><div id='header'><h1 id='breadcrumb'><span>Browse the source code of </span>";
-    // FIXME: If interestingDefitions has only 1 class, add it to the h1
+	// @tacent
+    //myfile << "</head>\n<body><div id='header'><h1 id='breadcrumb'><span>Browse the source code of </span>";
+    myfile << "</head>\n<body><div id='header'><h1 id='breadcrumb'><span>Source File </span>";
+    
+	// FIXME: If interestingDefitions has only 1 class, add it to the h1
 
     {
         int i = 0;
@@ -257,16 +260,19 @@ void Generator::generate(llvm::StringRef outputPrefix, std::string dataPath, con
         }
 
         switch (*c) {
-			// @tacent Deal with just LF and with CRLF properly.
-			case '\r': break;
+			// @tacent Deal with differnt line endings consistently. We ignore CR so we only need to deal with LF properly. LF and CRLF will now work.
+			case '\r': flush(); ++bufferStart; break;
             case '\n':
                 flush();
                 ++bufferStart; //skip the new line
                 ++line;
                 for (auto it = stack.crbegin(); it != stack.crend(); ++it)
                     (*it)->close(myfile);
-            //  myfile << "</td></tr>\n"
-                myfile << "</td></tr><tr><td></td></tr>\n"
+
+          		// myfile << "</td></tr>\n"
+				// @tacent Added nbsp so empty rows are displayed.
+                myfile << "&nbsp</td></tr>\n"
+
                           "<tr><th id=\"" << line << "\">"<< line << "</th><td>";
                 for (auto it = stack.cbegin(); it != stack.cend(); ++it)
                      (*it)->open(myfile);
