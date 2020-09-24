@@ -258,14 +258,15 @@ void Generator::generate(llvm::StringRef outputPrefix, std::string dataPath, con
 
         switch (*c) {
 			// @tacent Deal with just LF and with CRLF properly.
-			// case '\r': if (*(c+1) == '\n') ++c; break;
+			case '\r': break;
             case '\n':
                 flush();
                 ++bufferStart; //skip the new line
                 ++line;
                 for (auto it = stack.crbegin(); it != stack.crend(); ++it)
                     (*it)->close(myfile);
-                myfile << "</td></tr>\n"
+            //  myfile << "</td></tr>\n"
+                myfile << "</td></tr><tr><td></td></tr>\n"
                           "<tr><th id=\"" << line << "\">"<< line << "</th><td>";
                 for (auto it = stack.cbegin(); it != stack.cend(); ++it)
                      (*it)->open(myfile);
