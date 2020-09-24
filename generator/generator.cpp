@@ -194,7 +194,8 @@ void Generator::generate(llvm::StringRef outputPrefix, std::string dataPath, con
         myfile << "<a href='./'>" << split.first.str() << "</a>/";
         myfile << "<a href='" << split.second.str() << ".html'>" << split.second.str() << "</a>";
     }
-    myfile << "</h1></div>\n<hr/><div id='content'>";
+	// @tacent Added <br><a href='/tacent.php'>Home</a>
+    myfile << "<br><a href='/tacent.php'>Home</a></h1></div>\n<hr/><div id='content'>";
 
     if (!warningMessage.empty()) {
         myfile << "<p class=\"warnmsg\">";
